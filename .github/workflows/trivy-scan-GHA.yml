@@ -1,4 +1,4 @@
-name: Grype scan via GHA
+name: Trivy scan via GHA
 
 on:
     push:
@@ -17,13 +17,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # - name: Create empty JSON file in workspace
-      #   run: |
-      #     FILE_PATH="$GITHUB_WORKSPACE/store/request/request.json"
-      #     mkdir -p "$(dirname "$FILE_PATH")"
-      #     touch "$FILE_PATH"
-      #     echo "File created at: $FILE_PATH"
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -37,19 +30,13 @@ jobs:
           docker save -o output.tar vulnerable-python-app
           tar -tf output.tar
           
-      - id: grype-step
-        name: Grype scan
+      - id: trivy-step
+        name: Trivy scan
         uses: cloudbees-io-gha/trivy-scan-publish@v2
         with:
           binary-tar-path: output.tar
           cloudbees-url: https://api.saas-qa.beescloud.com
          
-
-      # - name: Grype scan
-      #   uses: cloudbees-io-gha/grype-scan-publish@v1
-      #   with:
-      #     binary-tar-path: debian.tar
-      #     cloudbees-url: https://api.saas-qa.beescloud.com
          
           
           
