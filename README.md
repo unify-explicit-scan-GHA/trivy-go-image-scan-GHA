@@ -1,1 +1,1 @@
-# trivy-go-dockerImage-scan
+# trivy-python-dockerImage-scan
